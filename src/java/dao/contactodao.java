@@ -1,18 +1,20 @@
-
 package dao;
+
 import conexion.conexioncora_bd;
 import modelo.contacto;
 import java.sql.*;
 import java.util.ArrayList;
+
 /**
  *
  * @author USUARIO
  */
 public class contactodao {
+
     private Connection cn;
     private CallableStatement cs;
     private ResultSet rs;
-    
+
     public ArrayList<contacto> listarcontactos() {
         ArrayList<contacto> lista = new ArrayList<>();
         String sql = "CALL sp_mostrarcontacto()";
@@ -42,33 +44,35 @@ public class contactodao {
         }
         return lista;
     }
+
     public boolean responderContacto(
-        int idContacto,
-        String respuesta){
+            int idContacto,
+            String respuesta) {
 
-    boolean resultado = false;
+        boolean resultado = false;
 
-    try{
+        try {
 
-        cn = conexioncora_bd.probarConexion();
+            cn = conexioncora_bd.probarConexion();
 
-        cs = cn.prepareCall(
-            "{CALL sp_respondercontacto(?,?)}"
-        );
+            cs = cn.prepareCall(
+                    "{CALL sp_respondercontacto(?,?)}"
+            );
 
-        cs.setInt(1, idContacto);
-        cs.setString(2, respuesta);
+            cs.setInt(1, idContacto);
+            cs.setString(2, respuesta);
 
-        resultado = cs.executeUpdate() > 0;
+            resultado = cs.executeUpdate() > 0;
 
-    }catch(Exception e){
-        e.printStackTrace();
-    }finally{
-        cerrarRecursos();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cerrarRecursos();
+        }
+
+        return resultado;
     }
 
-    return resultado;
-}
     private void cerrarRecursos() {
         try {
             if (rs != null) {

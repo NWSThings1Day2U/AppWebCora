@@ -64,3 +64,5 @@
     <c:remove var="info" scope="session"/>
     <c:remove var="urlConfirmacion" scope="session"/>
 </c:if>
+    
+    

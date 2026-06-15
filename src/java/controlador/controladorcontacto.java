@@ -1,5 +1,5 @@
-
 package controlador;
+
 import dao.contactodao;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -8,6 +8,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.MultipartConfig;
 import java.util.ArrayList;
 import modelo.contacto;
+import util.EmailService;
 
 /**
  *
@@ -19,6 +20,7 @@ public class controladorcontacto extends HttpServlet {
     private contactodao dao = new contactodao();
     private final String paglistar = "/vista/gcontacto.jsp";
     private final String paglistarcontacto = "/vista/contacto.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -40,12 +42,10 @@ public class controladorcontacto extends HttpServlet {
                 detalle(request, response);
                 break;
             default:
-                response.sendRedirect("controladorcontacto?accion=listar");  
+                response.sendRedirect("controladorcontacto?accion=listar");
         }
     }
-    
-        
-        
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -85,8 +85,6 @@ public class controladorcontacto extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-
-
     private void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Integer id = (Integer) session.getAttribute("id");
@@ -96,7 +94,7 @@ public class controladorcontacto extends HttpServlet {
                 ArrayList<modelo.contacto> lista = dao.listarcontactos();
                 request.setAttribute("listaContacto", lista);
                 request.getRequestDispatcher(paglistar).forward(request, response);
-            }else {
+            } else {
                 request.getRequestDispatcher(paglistarcontacto).forward(request, response);
             }
         } else {
@@ -104,21 +102,50 @@ public class controladorcontacto extends HttpServlet {
         }
     }
 
-    private void detalle(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-
+    private void detalle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
-    private void redactar( HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    private void redactar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        int idContacto = Integer.parseInt(request.getParameter("id_contacto"));
+        String correo = request.getParameter("correo");
+        String nombre = request.getParameter("nombre");
+        String asuntoConsulta = request.getParameter("asunto");
+        String mensajeConsulta = request.getParameter("mensaje");
+        String respuestaTexto = request.getParameter("respuesta");
+        
+        EmailService servicio = new EmailService();
 
-    int idContacto = Integer.parseInt(request.getParameter("id_contacto"));
+        boolean okCorreo = servicio.enviarRespuesta(
+                correo, nombre, asuntoConsulta, mensajeConsulta,
+                respuestaTexto
+        );
 
-    String respuestaTexto = request.getParameter("respuesta");
+        if (okCorreo) {
 
-    boolean ok =dao.responderContacto(idContacto, respuestaTexto);
+            boolean okBD = dao.responderContacto(
+                    idContacto,
+                    respuestaTexto
+            );
 
-    if(ok){
-        response.sendRedirect("controladorcontacto?accion=listar");
+            if (okBD) {
+                session.setAttribute(
+                        "success",
+                        "Respuesta enviada correctamente."
+                );
+            }
+
+        } else {
+
+            session.setAttribute(
+                    "error",
+                    "No se pudo enviar el correo."
+            );
+        }
+
+        response.sendRedirect(
+                "controladorcontacto?accion=listar"
+        );
     }
-}
 }

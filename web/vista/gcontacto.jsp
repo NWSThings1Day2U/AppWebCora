@@ -9,6 +9,19 @@
 <%@page import="java.util.ArrayList"%>
 <%
     ArrayList<modelo.contacto> lista = (ArrayList<modelo.contacto>) request.getAttribute("listaContacto");
+    int totalcontactos = 0; 
+    int respondidas =0;
+    int pendientes = 0;
+    if (lista != null) {
+        totalcontactos = lista.size();
+        for (modelo.contacto c : lista) {
+            if ("Pendiente".equals(c.getEstado())) {
+                pendientes++;
+            }else{
+                respondidas++;
+            }
+        }
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -42,7 +55,7 @@
             <h2 class="mb-5 text-center">Gestión de Contáctanos</h2>
             <div class="card p-4 border-top-0 rounded-bottom mb-5" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);">
                 <div class="d-flex align-items-center gap-2">
-                    <form class="d-flex" id="formBuscar" onsubmit="return false;">
+                    <form class="d-flex w-50" id="formBuscar" onsubmit="return false;">
                         <div class="input-group">
                             <input class="form-control border-end-0" id="inputTermino" type="search" placeholder="Busca nombre de remitente...">
                             <button class="input-group-text border-start-0 bg-white" type="button">
@@ -50,6 +63,28 @@
                             </button>
                         </div>
                     </form>
+                    <div class="col-12 col-lg-7">
+                        <div class="row g-2 justify-content-lg-end">
+                            <div class="col-6 col-sm-4" style="max-width: 160px;">
+                                <div class="p-2 text-center rounded border bg-light shadow-sm">
+                                    <small class="text-muted d-block text-truncate">Total</small>
+                                    <span class="fs-5 fw-bold text-dark"><%= totalcontactos %></span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-4" style="max-width: 160px;">
+                                <div class="p-2 text-center rounded border bg-warning-subtle shadow-sm">
+                                    <small class="text-warning d-block text-truncate">Pendientes</small>
+                                    <span class="fs-5 fw-bold text-warning"><%= pendientes %></span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-4" style="max-width: 160px;">
+                                <div class="p-2 text-center rounded border bg-success-subtle shadow-sm">
+                                    <small class="text-success-emphasis d-block text-truncate">Respondidas</small>
+                                    <span class="fs-5 fw-bold text-success-emphasis"><%= respondidas %></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card shadow-sm p-4">
@@ -104,25 +139,23 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="d-flex flex-wrap justify-content-center gap-2">
-                                                <button type="button"
-                                                        class="btn btn-redactar btn-sm"
+                                                <% if("Pendiente".equals(con.getEstado())) { %>
+                                                <button type="button" class="btn btn-redactar btn-sm"
                                                         onclick="prepararRedactar(
                                                             '<%= con.getId_contacto() %>',
                                                             '<%= con.getNombre() %>',
-                                                            '<%= con.getTelefono() %>',
                                                             '<%= con.getCorreo() %>',
                                                             '<%= con.getAsunto() %>',
                                                             '<%= con.getMensaje() %>')">
                                                     <i class="fa-solid fa-envelope-open-text"></i>
                                                 </button>
-                                                <% if("Respondido".equals(con.getEstado())) { %>
-                                                    <button type="button"
-        class="btn btn-success btn-sm"
-        onclick="verRespuesta(
-            '<%= con.getRespuesta() %>',
-            '<%= con.getFecha_respuesta() %>')">
-    <i class="fa-solid fa-eye"></i>
-</button>
+                                                    <% } else { %>
+                                                    <button type="button" class="btn btn-success btn-sm"
+                                                            onclick="verRespuesta(
+                                                                '<%= con.getRespuesta() %>',
+                                                                '<%= con.getFecha_respuesta() %>')">
+                                                        <i class="fa-solid fa-eye"></i>
+                                                    </button>
                                                  <% } %>
                                             </div>
                                         </td>
@@ -143,115 +176,119 @@
             </div>
                                 
              <div class="modal fade" id="modalRedactar" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <form action="controladorcontacto" method="POST" class="modal-content">
+                <div class="modal-dialog modal-lg">
+                    <form action="controladorcontacto" method="POST" class="modal-content" id="formResponder">
 
-            <input type="hidden" name="accion" value="redactar">
-            <input type="hidden" name="id_contacto" id="re_id_contacto">
+                        <input type="hidden" name="accion" value="redactar">
+                        <input type="hidden" name="id_contacto" id="re_id_contacto">
+                        <input type="hidden" name="nombre" id="re_nombre_hidden">
+                        <input type="hidden" name="asunto" id="re_asunto_hidden">
+                        <input type="hidden" name="mensaje" id="re_mensaje_hidden">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Responder contacto</h5>
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"></button>
+                        </div>
 
-            <div class="modal-header">
-                <h5 class="modal-title">Responder contacto</h5>
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"></button>
-            </div>
+                        <div class="modal-body">
 
-            <div class="modal-body">
+                            <div class="mb-3">
+                                <label>Nombre</label>
+                                <input type="text"
+                                       id="re_nombre"
+                                       class="form-control"
+                                       readonly>
+                            </div>
 
-                <div class="mb-3">
-                    <label>Nombre</label>
-                    <input type="text"
-                           id="re_nombre"
-                           class="form-control"
-                           readonly>
+                            <div class="mb-3">
+                                <label>Correo</label>
+                                <input type="email"
+                                       id="re_correo"
+                                       name="correo"
+                                       class="form-control"
+                                       readonly>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Asunto Original</label>
+                                <input type="text"
+                                       id="re_asunto"
+                                       class="form-control"
+                                       readonly>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Mensaje recibido</label>
+                                <textarea id="re_mensaje"
+                                          class="form-control"
+                                          rows="4"
+                                          readonly></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Respuesta</label>
+                                <textarea name="respuesta"
+                                          class="form-control"
+                                          rows="6"
+                                          required></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Enviar respuesta
+                            </button>
+                        </div>
+
+                    </form>
                 </div>
 
-                <div class="mb-3">
-                    <label>Correo</label>
-                    <input type="email"
-                           id="re_correo"
-                           name="correo"
-                           class="form-control"
-                           readonly>
+            </div>  
+            <div class="modal fade" id="modalDetalle" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                Respuesta enviada
+                            </h5>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <p>
+                                <strong>Fecha:</strong>
+                                <span id="detalle_fecha"></span>
+                            </p>
+
+                            <textarea id="detalle_respuesta"
+                                      class="form-control"
+                                      rows="8"
+                                      readonly></textarea>
+
+                        </div>
+
+                    </div>
                 </div>
-
-                <div class="mb-3">
-                    <label>Asunto Original</label>
-                    <input type="text"
-                           id="re_asunto"
-                           class="form-control"
-                           readonly>
-                </div>
-
-                <div class="mb-3">
-                    <label>Mensaje recibido</label>
-                    <textarea id="re_mensaje"
-                              class="form-control"
-                              rows="4"
-                              readonly></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label>Respuesta</label>
-                    <textarea name="respuesta"
-                              class="form-control"
-                              rows="6"
-                              required></textarea>
-                </div>
-
             </div>
-
-            <div class="modal-footer">
-                <button type="submit"
-                        class="btn btn-primary">
-                    Enviar respuesta
-                </button>
-            </div>
-
-        </form>
-    </div>
-                 
-</div>  
-                                <div class="modal fade" id="modalDetalle" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    Respuesta enviada
-                </h5>
-            </div>
-
-            <div class="modal-body">
-
-                <p>
-                    <strong>Fecha:</strong>
-                    <span id="detalle_fecha"></span>
-                </p>
-
-                <textarea id="detalle_respuesta"
-                          class="form-control"
-                          rows="8"
-                          readonly></textarea>
-
-            </div>
-
-        </div>
-    </div>
-</div>
         </main>
         <!-- Bootstrap y alertify -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
         <jsp:include page="/componentes/alertas.jsp" />  
         <script>
-            function prepararRedactar(id, nombre, telefono, correo, asunto, mensaje) {
+            function prepararRedactar(id, nombre, correo,  asunto, mensaje) {
                 document.getElementById('re_id_contacto').value = id;
                 document.getElementById('re_nombre').value = nombre;
-                document.getElementById('re_telefono').value = telefono;
                 document.getElementById('re_correo').value = correo; 
                 document.getElementById('re_asunto').value = asunto; 
                 document.getElementById('re_mensaje').value = mensaje;
+                document.getElementById('re_nombre_hidden').value = nombre;
+                document.getElementById('re_asunto_hidden').value = asunto;
+                document.getElementById('re_mensaje_hidden').value = mensaje;
                 var modal = new bootstrap.Modal(document.getElementById('modalRedactar'));
                 modal.show();
             }
@@ -296,15 +333,41 @@
             });
             function verRespuesta(respuesta, fecha){
 
-    document.getElementById("detalle_respuesta").value = respuesta;
-    document.getElementById("detalle_fecha").innerText = fecha;
+                document.getElementById("detalle_respuesta").value = respuesta;
+                document.getElementById("detalle_fecha").innerText = fecha;
 
-    var modal = new bootstrap.Modal(
-        document.getElementById("modalDetalle")
-    );
+                var modal = new bootstrap.Modal(
+                    document.getElementById("modalDetalle")
+                );
 
-    modal.show();
-}
+                modal.show();
+            }
+        </script>
+        
+        <script>
+            document.getElementById("formResponder")
+            .addEventListener("submit", function(e){
+
+                e.preventDefault();
+
+                Swal.fire({
+                    title: '¿Enviar respuesta?',
+                    text: 'Se enviará el correo al cliente y el estado cambiará a Respondido.',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#5a67d8',
+                    cancelButtonColor: '#e53e3e',
+                    confirmButtonText: 'Sí, enviar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+
+                    if(result.isConfirmed){
+                        this.submit();
+                    }
+
+                });
+
+            });
         </script>
     </body>
 </html>
