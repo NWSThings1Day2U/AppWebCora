@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/java/dao/usuariodao.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>84</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/src/java/modelo/productos.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/web/vista/productodetalle.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/web/componentes/encabezado.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/src/java/controlador/controladorpagina.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/web/vista/productos.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/src/java/modelo/carrito.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/web/vista/busqueda.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/src/java/controlador/controladorproducto.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/src/java/dao/productodao.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/web/index.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/MDW/AppWebCora/web/componentes/modalbusqueda.jsp</file>
+        </group>
+    </open-files>
+</project-private>

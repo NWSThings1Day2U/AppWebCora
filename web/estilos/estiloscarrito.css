@@ -1,0 +1,166 @@
+
+
+.custom-table {
+    background-color: #ffffff !important;
+    border-collapse: collapse;
+    margin-bottom: 0;
+    border: 1px solid #dbb3b1 !important; 
+}
+
+.custom-table thead {
+    background-color: #f9eae6 !important; 
+}
+
+.custom-table th {
+    background-color: transparent !important; 
+    color: #4a3e3d;
+    font-weight: normal;
+    font-size: 1.05rem;
+    padding: 15px 10px;
+    text-align: center;
+    border: 1px solid #dbb3b1 !important; 
+}
+
+.custom-table th:first-child {
+    text-align: left; 
+}
+
+.custom-table td {
+    background-color: #ffffff !important; 
+    padding: 15px 10px;
+    color: #4a3e3d;
+    border: 1px solid #dbb3b1 !important; 
+}
+
+.fila-vacia td {
+    height: 75px;
+    background-color: #ffffff !important;
+}
+
+.producto-contenedor {
+    display: flex;
+    align-items: center;
+}
+
+.producto-img-tabla {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #dbb3b1;
+}
+
+.producto-detalles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.producto-nombre {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #4a3e3d;
+    margin-bottom: 4px;
+}
+
+.producto-meta {
+    font-size: 0.85rem;
+    color: #7a6866;
+}
+
+.precio-celda, .subtotal-celda {
+    font-size: 1.05rem;
+    color: #4a3e3d;
+}
+
+.control-cantidad-box {
+    border: 1px solid #dbb3b1;
+    background-color: #ffffff;
+    border-radius: 4px;
+    width: 105px;
+    height: 35px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn-cantidad-action {
+    background: none !important;
+    border: none !important;
+    color: #dbb3b1 !important;
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 25px;
+    height: 100%;
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none; 
+    transition: color 0.2s;
+}
+.btn-cantidad-action:hover {
+    color: #c99290 !important;
+}
+
+.txt-cantidad-valor {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #4a3e3d;
+    min-width: 25px;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-eliminar-tacho {
+    color: #dbb3b1 !important; 
+    font-size: 1.2rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-eliminar-tacho:hover {
+    color: #c99290 !important; 
+    transform: scale(1.1);
+}
+.row-total td {
+    background-color: #ffffff !important;
+    padding: 20px 15px;
+}
+
+.text-total-lbl {
+    font-size: 1.1rem;
+    color: #4a3e3d;
+}
+
+.text-total-val {
+    font-size: 1.1rem;
+    color: #4a3e3d;
+}
+
+.btn-carrito-action {
+    background-color: #e6c8c5; 
+    color: #524341;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 35px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-carrito-action:hover {
+    background-color: #dbb3b1;
+    color: #382c2b;
+}
+
+.foto-maqueta {
+    max-height: 420px;
+    border-radius: 40px;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
