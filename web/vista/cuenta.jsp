@@ -63,15 +63,6 @@
             <h2 class="mb-5 text-center">Mi cuenta</h2>
 
             <div class="card-group shadow-sm">
-                <!-- 
-                <div class="card">
-                    <div class="card-body">
-                        
-                        <h5 class="card-title">Acceder a cuenta</h5>
-                <jsp:include page="../vista/login.jsp" />
-            </div>
-        </div>
-                -->
 
                 <%
                         if (modo != null && modo.equals("registro")){
@@ -113,7 +104,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
         <jsp:include page="/componentes/pie.jsp" /> 
-
+        <jsp:include page="/componentes/alertas.jsp" /> 
         <jsp:include page="/componentes/mensajes.jsp" /> 
 
     </body>

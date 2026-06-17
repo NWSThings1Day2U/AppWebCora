@@ -125,7 +125,7 @@ public class controladorseccion extends HttpServlet {
              throws ServletException, IOException {
         request.setAttribute("paginaActual", "pedidos");
 
-        request.getRequestDispatcher(pagpedidos).forward(request, response);
+        request.getRequestDispatcher("controladorpedido?accion=listar").forward(request, response);  
     }
     
     private void perfil(HttpServletRequest request, HttpServletResponse response)              

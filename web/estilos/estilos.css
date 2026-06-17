@@ -240,3 +240,120 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+.tarjeta-personalizada-cora {
+    border-radius: 12px !important;
+    border: 1px solid #f2dfdd !important;
+    background-color: #ffffff;
+}
+
+.input-redondeado-cora {
+    border-radius: 20px !important;
+    background-color: #fcfbfa !important;
+    border: 1px solid #dcc8d1 !important;
+}
+.btn-outline-entrega {
+    background-color: #F6F2EF;
+    border: 1px solid #d1c4b9;
+    color: #7c6753;
+    transition: all 0.2s ease;
+}
+.btn-check-entrega:checked + .btn-outline-entrega {
+    background-color: #fbf3f0 !important; 
+    border-color: #dbb3b1 !important;
+    color: #5d544b !important;
+    font-weight: bold;
+}
+.btn-outline-entrega:hover {
+    background-color: #fbf3f0 !important;
+    border: 1px solid #E9CFCE !important;
+    color: #5d544b !important;
+    transition: all 0.2s ease;
+    font-weight: bold;
+}
+
+
+.btn-pago-cora {
+    transition: all 0.3s ease !important;
+    cursor: pointer;
+    background-color: #f5f1ec !important; 
+    border: 1px solid #d1c4b9 !important;
+    color: #5d544b !important;
+}
+
+.btn-pago-cora:hover {
+    background-color: #ede6e0 !important; 
+    border-color: #c4b5a8 !important;
+    color: #4a423a !important;
+    opacity: 1 !important;
+}
+
+.btn-check:checked + .btn-pago-cora {
+    background-color: #ebdcd9 !important;
+    border-color: #dbb3b1 !important;
+    color: #4a4a4a !important;
+    font-weight: bold;
+}
+
+.ticket-contenedor-cora {
+    background-color: #fdfbfa;
+    border: 1px solid #e3dbd5;
+    border-radius: 8px;
+    position: relative;
+    padding: 24px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.ticket-contenedor-cora::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background-image: linear-gradient(135deg, #ffffff 25%, transparent 25%), 
+                      linear-gradient(225deg, #ffffff 25%, transparent 25%);
+    background-size: 12px 12px;
+    background-position: center top;
+    z-index: 2;
+}
+
+.ticket-header-cora {
+    text-align: center;
+    border-bottom: 2px dashed #d1c4b9;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.ticket-linea-item-cora {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    color: #502725;
+    font-weight: inherit;
+}
+
+.ticket-separador-cora {
+    border-top: 1px dashed #d1c4b9;
+    margin: 15px 0;
+}
+
+.ticket-total-cora {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #B1564E;
+}
+.btn-confirmar {
+    background-color: #e6c8c5; 
+    color: #524341;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 35px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-confirmar:hover {
+    background-color: #dbb3b1;
+    color: #382c2b;
+}

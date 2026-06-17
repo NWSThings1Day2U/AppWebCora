@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package controlador;
 
+import dao.pedidodao;
 import dao.perfildao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.List;
 import modelo.usuarios;
 
 /**
@@ -28,7 +26,7 @@ import modelo.usuarios;
 public class controladorperfil extends HttpServlet {
 
     private perfildao dao = new perfildao();
-
+    private pedidodao pdao = new pedidodao();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -43,6 +41,10 @@ public class controladorperfil extends HttpServlet {
             if ("admin".equals(rol)) {
                 request.getRequestDispatcher("/vista/gperfil.jsp").forward(request, response);
             } else {
+                List<modelo.pedido> misPedidos = pdao.listarPorUsuario(id);
+
+                request.setAttribute("listaMispedidos", misPedidos);
+
                 request.getRequestDispatcher("/vista/perfil.jsp").forward(request, response);
             }
         } else {

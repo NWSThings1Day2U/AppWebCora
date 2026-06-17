@@ -1,4 +1,9 @@
 
+body {
+    font-family: "Luxurious Roman", serif;
+    background-color: #f5f1ec;
+
+}
 
 .custom-table {
     background-color: #ffffff !important;

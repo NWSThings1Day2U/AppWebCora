@@ -5,6 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="modelo.contacto"%>
+
+<%
+    contacto datos = (contacto) request.getAttribute("datosUsuario");
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -79,21 +84,21 @@
                             <h5 class="card-title text-center">Envíanos un mensaje</h5>
                             <div class="container-fluid px-4">
                                 <form action="controladorcontacto" id="formContacto" method="POST" class="needs-validation" novalidate>
-                                    <input type="hidden" name="accion" value="contacto">
-
+                                    <input type="hidden" name="accion" value="registrar">
+                                    
                                     <div class="row mb-4">
                                         <div class="col-md-6">
                                             <label class="form-label">Nombre Completo: </label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control input-cora" name="nombre" required 
+                                                <input type="text" class="form-control input-cora" name="nombre" value="<%= datos != null ? datos.getNombre() : "" %>" <%= datos != null ? "readonly" : "" %> minlength="4" required 
                                                        pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" >
-                                                <div class="invalid-feedback">Solo letras.</div>
+                                                <div class="invalid-feedback">Solo letras y 4 digitos min.</div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Teléfono: </label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control val-numero input-cora" name="telefono" required 
+                                                <input type="text" class="form-control val-numero input-cora" name="telefono" value="<%= datos != null ? datos.getTelefono() : "" %>" <%= datos != null ? "readonly" : "" %> required 
                                                        maxlength="9" pattern="9\d{8}" >
                                                 <div class="invalid-feedback">Debe empezar con 9 y tener 9 dígitos.</div>
                                             </div>
@@ -104,7 +109,7 @@
                                         <div class="col-md-6">
                                             <label class="form-label">Correo: </label>
                                             <div class="input-group">
-                                                <input type="email" class="form-control input-cora" name="correo" required >
+                                                <input type="email" class="form-control input-cora" name="correo" value="<%= datos != null ? datos.getCorreo() : "" %>" <%= datos != null ? "readonly" : "" %> required>
                                                 <div class="invalid-feedback">Correo no válido.</div>
                                             </div>
                                         </div>
@@ -122,12 +127,14 @@
                                         <div class="col-md-12">
                                             <label class="form-label" for="descripcion">Descripción (opcional): </label>
                                             <div class="input-group">
-                                                <textarea class="form-control textarea-cora" id="descripcion" name="descripcion" rows="4"  required></textarea>
+                                                <textarea class="form-control textarea-cora" id="descripcion" name="descripcion" rows="4"  ></textarea>
                                             </div>
                                         </div>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary w-100 mb-2"> Enviar</button>
+                                    
+                                </form>
                             </div>
                         </div>
                         
@@ -138,9 +145,28 @@
         <!-- Bootstrap y alertify -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-                <jsp:include page="/componentes/pie.jsp" /> 
-
+        <jsp:include page="/componentes/pie.jsp"/> 
+                
         <jsp:include page="/componentes/mensajes.jsp" /> 
+        <script>
+            (() => {
+                'use strict';
 
+                const forms = document.querySelectorAll('.needs-validation');
+
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+
+                        form.classList.add('was-validated');
+
+                    }, false);
+                });
+            })();
+        </script>
     </body>
 </html>

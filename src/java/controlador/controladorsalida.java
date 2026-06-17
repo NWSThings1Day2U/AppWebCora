@@ -32,7 +32,7 @@ public class controladorsalida extends HttpServlet {
         HttpSession nuevaSesion = request.getSession(true);
         nuevaSesion.setAttribute("success", "Sesión cerrada. ¡Vuelve pronto, " + (nombreUsuario != null ? nombreUsuario : "") + "!");
 
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("controladorpagina?pagina=inicio");
     }
 
 

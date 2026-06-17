@@ -1,6 +1,5 @@
 package controlador;
 
-import dao.carritodao;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -108,7 +107,7 @@ public class controladorcarrito extends HttpServlet {
         HttpSession session = request.getSession();
 
         String idVarianteStr = request.getParameter("id_variante");
-
+        
         if (idVarianteStr == null || idVarianteStr.isBlank()) {
 
             session.setAttribute("error","Debe seleccionar una talla y color.");
@@ -178,8 +177,7 @@ public class controladorcarrito extends HttpServlet {
         request.getRequestDispatcher("/vista/carrito.jsp").forward(request, response);
     }
 
-    private void sumar(HttpServletRequest request,
-            HttpServletResponse response)
+    private void sumar(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
         HttpSession session = request.getSession();
@@ -284,15 +282,25 @@ public class controladorcarrito extends HttpServlet {
         HttpSession session = request.getSession();
 
         Integer id = (Integer) session.getAttribute("id");
+        String rol = (String) session.getAttribute("rol");
+        try {
+            if (id == null) {
+                request.getSession().setAttribute("error", "Necesita iniciar sesion para procesar su pedido, sino tiene cuenta puede crearse una.");
+                response.sendRedirect("controladorpagina?pagina=cuenta");
 
-        if (id == null) {
-
-            response.sendRedirect("controladorlogin?accion=login");
-
-            return;
+            }else{
+                if (rol.equals("cliente")) {
+                    request.getSession().setAttribute("success", "Carrito guardado correctamente.");
+                    response.sendRedirect("controladorpagina?pagina=completarpedido");
+                }
+            }
+            
+            
+        } catch (Exception e) {
+            request.getSession().setAttribute("error", "Surgio un error, intente de nuevo.");
+            response.sendRedirect("controladorcarrito");
+            e.printStackTrace();
         }
-
-        // aquí luego registrarás pedido,
-        // detalle_pedido y pago
+        
     }
 }

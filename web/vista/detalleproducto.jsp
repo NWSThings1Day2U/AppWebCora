@@ -42,7 +42,7 @@ if (variantes != null) {
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Detalle Producto</title>
+        <title>Detalle Producto #<%= producto.getId_producto() %></title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +61,7 @@ if (variantes != null) {
         <main class="container mt-5 pt-4" style="margin-top: 180px; margin-bottom: 150px;">
 
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>Detalle del Producto</h2>
+                <h2>Detalle del Producto #<%= producto.getId_producto() %></h2>
 
                 <a href="controladorproducto?accion=listar"
                    class="btn btn-secondary">
@@ -495,7 +495,7 @@ if (variantes != null) {
 
                     <div class="modal-body">
 
-                        ¿Desea eliminar esta variante?
+                        ¿Desea eliminar esta variante con id #<%= producto.getId_producto() %> ?
 
                     </div>
 
@@ -524,20 +524,14 @@ if (variantes != null) {
                 document.getElementById("edit_stock").value = stock;
                 document.getElementById("edit_precio").value = precio;
 
-                new bootstrap.Modal(
-                        document.getElementById("modalEditarVariante")
-                        ).show();
+                new bootstrap.Modal(document.getElementById("modalEditarVariante")).show();
             }
 
             function eliminarVariante(id) {
 
-                document.getElementById(
-                        "delete_id_variante"
-                        ).value = id;
+                document.getElementById( "delete_id_variante" ).value = id;
 
-                new bootstrap.Modal(
-                        document.getElementById("modalEliminarVariante")
-                        ).show();
+                new bootstrap.Modal( document.getElementById("modalEliminarVariante")).show();
             }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -44,10 +44,79 @@ public class contactodao {
         }
         return lista;
     }
+    
+    public boolean registrarContacto(contacto c) {
 
-    public boolean responderContacto(
-            int idContacto,
-            String respuesta) {
+        boolean resultado = false;
+
+        try {
+
+            cn = conexioncora_bd.probarConexion();
+
+            cs = cn.prepareCall(
+                "{CALL sp_registrar_contacto(?,?,?,?,?)}"
+            );
+
+            cs.setString(1, c.getNombre());
+            cs.setString(2, c.getTelefono());
+            cs.setString(3, c.getCorreo());
+            cs.setString(4, c.getAsunto());
+            cs.setString(5, c.getMensaje());
+
+            resultado = cs.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cerrarRecursos();
+        }
+
+        return resultado;
+    }
+    
+    public contacto obtenerDatosContactoUsuario(int idUsuario) {
+
+        contacto c = null;
+
+        try {
+
+            cn = conexioncora_bd.probarConexion();
+
+            cs = cn.prepareCall(
+                "{CALL sp_datos_contacto_usuario(?)}"
+            );
+
+            cs.setInt(1, idUsuario);
+
+            rs = cs.executeQuery();
+
+            if (rs.next()) {
+
+                c = new contacto();
+
+                c.setNombre(
+                    rs.getString("nombre_completo")
+                );
+
+                c.setTelefono(
+                    rs.getString("telefono")
+                );
+
+                c.setCorreo(
+                    rs.getString("correo")
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cerrarRecursos();
+        }
+
+        return c;
+    }
+    
+    public boolean responderContacto(int idContacto,String respuesta) {
 
         boolean resultado = false;
 

@@ -21,7 +21,7 @@ public class controladorpagina extends HttpServlet {
     private final String pagnosotros = "/vista/nosotros.jsp";
     private final String pagpcontacto = "/vista/contacto.jsp";
     private final String pagpcarrito = "/vista/carrito.jsp";
-    private final String pagplupa = "/vista/lupa.jsp";
+    private final String pagcompletarpedido = "/vista/completarpedido.jsp";
     private final String pagpcuenta = "/vista/cuenta.jsp";
     private final String pagperfil = "/vista/perfil.jsp";
     private final String pagdetalle = "/vista/detalleproducto.jsp";
@@ -50,9 +50,6 @@ public class controladorpagina extends HttpServlet {
             case "carrito":
                 carrito(request, response);
                 break;
-            case "lupa":
-                lupa(request, response);
-                break;
             case "cuenta":
                 cuenta(request, response);
                 break;
@@ -61,6 +58,9 @@ public class controladorpagina extends HttpServlet {
                 break;
             case "buscar":
                 buscar(request,response);
+                break;
+            case "completarpedido":
+                completarpedido(request, response);
                 break;
             default:
                 throw new AssertionError();
@@ -156,11 +156,11 @@ public class controladorpagina extends HttpServlet {
         request.getRequestDispatcher(pagpcarrito).forward(request, response);
     }
 
-    private void lupa(HttpServletRequest request, HttpServletResponse response)
+    private void completarpedido(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                request.setAttribute("paginaActual", "lupa");
+        request.setAttribute("paginaActual", "completarpedido");
 
-        request.getRequestDispatcher(pagplupa).forward(request, response);
+        request.getRequestDispatcher(pagcompletarpedido).forward(request, response);
     }
 
     private void cuenta(HttpServletRequest request, HttpServletResponse response)

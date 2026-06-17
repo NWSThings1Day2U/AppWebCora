@@ -75,7 +75,7 @@ public class controladorusuario extends HttpServlet {
             }
         } else {
             request.getSession().setAttribute("error", "Datos incorrectos, intente de nuevo!");
-            response.sendRedirect("controladorpagina?pagina=cuenta&modo=login");;
+            response.sendRedirect("controladorpagina?pagina=cuenta&modo=login");
         }
     }
 
@@ -104,7 +104,7 @@ public class controladorusuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("controladorpagina?pagina=inicio");
     }
 
 }

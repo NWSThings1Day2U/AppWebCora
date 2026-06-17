@@ -3,7 +3,7 @@ package util;
 import org.apache.commons.mail2.jakarta.DefaultAuthenticator;
 import org.apache.commons.mail2.jakarta.HtmlEmail;
 
-public class EmailService {
+public class servicioemail {
 
     public boolean enviarRespuesta(
         String destino,

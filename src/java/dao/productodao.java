@@ -279,7 +279,7 @@ public class productodao {
 
             String sql =
                 "SELECT p.id_producto,p.nombre,p.imagen," +
-                "c.nombre as nombre_categoria," +
+                "c.nombre as nombre_categoria, c.id_categoria, " +
                 "v.id_variante,v.color,v.talla,v.precio " +
                 "FROM producto_variantes v " +
                 "INNER JOIN productos p ON p.id_producto=v.id_producto " +
@@ -298,6 +298,7 @@ public class productodao {
                 p.setNombre(rs.getString("nombre"));
                 p.setImagen(rs.getString("imagen"));
                 p.setNombre_categoria(rs.getString("nombre_categoria"));
+                p.setId_categoria(rs.getInt("id_categoria"));
                 p.setId_variante(rs.getInt("id_variante"));
                 p.setColor(rs.getString("color"));
                 p.setTalla(rs.getString("talla"));

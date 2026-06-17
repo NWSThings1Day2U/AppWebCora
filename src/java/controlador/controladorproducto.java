@@ -18,6 +18,7 @@ public class controladorproducto extends HttpServlet {
     private final String paglistarcliente = "/vista/productos.jsp";
     private final String pagdetalle = "/vista/detalleproducto.jsp";
     private final String pagdetallecliente = "/vista/productodetalle.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
@@ -213,32 +214,26 @@ public class controladorproducto extends HttpServlet {
         HttpSession session = request.getSession();
         Integer id = (Integer) session.getAttribute("id");
         String rol = (String) session.getAttribute("rol");
-        int idProducto= Integer.parseInt(request.getParameter("id_producto"));
+        int idProducto = Integer.parseInt(request.getParameter("id_producto"));
+        System.out.println("ID PRODUCTO = " + idProducto);
+        productos producto = prodDao.obtenerProducto(idProducto);
+        System.out.println("PRODUCTO = " + producto);
+        ArrayList<productos> variantes = prodDao.listarVariantes(idProducto);
+        System.out.println("VARIANTES SIZE = " + variantes.size());
+        request.setAttribute("producto", producto);
+        request.setAttribute("variantes", variantes);
+        if (id != null) {
 
-                System.out.println("ID PRODUCTO = " + idProducto);
+            if (rol.equals("admin")) {
 
-                productos producto = prodDao.obtenerProducto(idProducto);
-
-                System.out.println("PRODUCTO = " + producto);
-
-                ArrayList<productos> variantes = prodDao.listarVariantes(idProducto);
-
-                System.out.println("VARIANTES SIZE = " + variantes.size());
-
-                request.setAttribute("producto", producto);
-                request.setAttribute("variantes", variantes);
-            if (id != null) {
-                
-                    if (rol.equals("admin")) {
-                        
-                        request.getRequestDispatcher(pagdetalle).forward(request, response);
-                    }else {
-                        request.getRequestDispatcher(pagdetallecliente).forward(request, response);
-                    }
-            }else {
+                request.getRequestDispatcher(pagdetalle).forward(request, response);
+            } else {
                 request.getRequestDispatcher(pagdetallecliente).forward(request, response);
             }
-        
+        } else {
+            request.getRequestDispatcher(pagdetallecliente).forward(request, response);
+        }
+
     }
 
     // 2. GESTIÓN DE VARIANTES (SUB-CRUD)

@@ -5,10 +5,9 @@ import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.MultipartConfig;
 import java.util.ArrayList;
 import modelo.contacto;
-import util.EmailService;
+import util.servicioemail;
 
 /**
  *
@@ -38,8 +37,8 @@ public class controladorcontacto extends HttpServlet {
             case "redactar":
                 redactar(request, response);
                 break;
-            case "detalle":
-                detalle(request, response);
+            case "registrar":
+                registrar(request, response);
                 break;
             default:
                 response.sendRedirect("controladorcontacto?accion=listar");
@@ -95,6 +94,8 @@ public class controladorcontacto extends HttpServlet {
                 request.setAttribute("listaContacto", lista);
                 request.getRequestDispatcher(paglistar).forward(request, response);
             } else {
+                contacto datos = dao.obtenerDatosContactoUsuario(id);
+                request.setAttribute("datosUsuario", datos);
                 request.getRequestDispatcher(paglistarcontacto).forward(request, response);
             }
         } else {
@@ -102,8 +103,65 @@ public class controladorcontacto extends HttpServlet {
         }
     }
 
-    private void detalle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Integer id = (Integer) session.getAttribute("id");
+        String rol = (String) session.getAttribute("rol");
+        try {
+            String nombre = request.getParameter("nombre");
+            String telefono = request.getParameter("telefono");
+            String correo = request.getParameter("correo");
+            String asunto = request.getParameter("asunto");
+            String descripcion = request.getParameter("descripcion");
 
+            if(nombre == null || nombre.trim().isEmpty()){
+                session.setAttribute("error","Debe ingresar un nombre.");
+                response.sendRedirect( "controladorcontacto?accion=listar");
+            }
+
+            if(!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")){
+                session.setAttribute("error","El nombre solo debe contener letras.");
+                response.sendRedirect("controladorcontacto?accion=listar");
+            }
+
+            if(!telefono.matches("^9\\d{8}$")){
+                session.setAttribute("error", "Teléfono inválido.");
+                response.sendRedirect("controladorcontacto?accion=listar");
+            }
+
+            if(!correo.matches( "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")){
+                session.setAttribute("error","Correo inválido.");
+                response.sendRedirect( "controladorcontacto?accion=listar");
+            }
+
+            if(asunto == null || asunto.trim().length() < 3){
+                session.setAttribute("error","Ingrese un asunto válido.");
+                response.sendRedirect("controladorcontacto?accion=listar");
+            }
+
+            contacto con = new contacto();
+            con.setNombre(nombre);
+            con.setTelefono(telefono);
+            con.setCorreo(correo);
+            con.setAsunto(asunto);
+            con.setMensaje(descripcion);
+
+            boolean exito = dao.registrarContacto(con);
+
+            if(exito){
+                session.setAttribute("success","El mensaje se registró correctamente.");
+            }else{
+                session.setAttribute("error","No se pudo registrar el mensaje." );
+            }
+
+            response.sendRedirect("controladorcontacto?accion=listar");
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            session.setAttribute("error", "Error al registrar el mensaje.");
+
+            response.sendRedirect( "controladorcontacto?accion=listar");
+        }
     }
 
     private void redactar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -115,7 +173,7 @@ public class controladorcontacto extends HttpServlet {
         String mensajeConsulta = request.getParameter("mensaje");
         String respuestaTexto = request.getParameter("respuesta");
         
-        EmailService servicio = new EmailService();
+        servicioemail servicio = new servicioemail();
 
         boolean okCorreo = servicio.enviarRespuesta(
                 correo, nombre, asuntoConsulta, mensajeConsulta,
@@ -130,22 +188,15 @@ public class controladorcontacto extends HttpServlet {
             );
 
             if (okBD) {
-                session.setAttribute(
-                        "success",
-                        "Respuesta enviada correctamente."
+                session.setAttribute( "success", "Respuesta enviada correctamente."
                 );
             }
 
         } else {
 
-            session.setAttribute(
-                    "error",
-                    "No se pudo enviar el correo."
-            );
+            session.setAttribute("error", "No se pudo enviar el correo.");
         }
 
-        response.sendRedirect(
-                "controladorcontacto?accion=listar"
-        );
+        response.sendRedirect( "controladorcontacto?accion=listar" );
     }
 }
