@@ -109,11 +109,6 @@ body {
     border: none !important;
 }
 
-/* =========================================
-   ESTILOS NUEVOS: SECCIÓN CATEGORÍAS CORA
-   ========================================= */
-
-/* Tarjeta principal de categoría */
 .categoria-card {
     background-color: #ffffff;
     border-radius: 12px;
@@ -126,51 +121,44 @@ body {
     box-shadow: 0 10px 20px rgba(219, 177, 173, 0.15) !important;
 }
 
-/* Contenedor cuadrado perfecto (Relación de aspecto 1:1) */
 .categoria-img-container {
     width: 100%;
-    aspect-ratio: 1 / 1; /* Esto asegura que siempre sea un cuadrado exacto */
+    aspect-ratio: 1 / 1; 
 }
 
-/* Animación de la imagen base */
 .img-categoria-base {
     transition: transform 0.5s ease;
 }
 
-/* Capa rosa translúcida */
 .overlay-categoria-rosa {
-    background: rgba(219, 177, 173, 0.35); /* Tono rosa insignia de Cora */
+    background: rgba(219, 177, 173, 0.35);
     opacity: 0;
     transition: opacity 0.4s ease;
 }
 
-/* Título de la categoría con sutil cambio de color */
 .categoria-card-title {
     font-weight: 600;
     color: #4a4a4a;
     transition: color 0.3s ease;
 }
 
-/* --- Efectos Hover combinados --- */
 .categoria-card:hover .img-categoria-base {
-    transform: scale(1.08); /* Zoom suave */
+    transform: scale(1.08);
 }
 
 .categoria-card:hover .overlay-categoria-rosa {
-    opacity: 1; /* Muestra el tinte rosa */
+    opacity: 1; 
 }
 
 .categoria-card:hover .categoria-card-title {
-    color: #dbb1ad; /* El título se torna rosa en sintonía */
+    color: #dbb1ad; 
 }
 
-/* Texto descriptivo */
 .categoria-card-text {
     line-height: 1.5;
-    font-family: system-ui, -apple-system, sans-serif; /* Un toque más limpio para textos largos */
+    font-family: system-ui, -apple-system, sans-serif; 
 }
 
-/* Botón "Ver productos" - Proporcionado y fino */
 .btn-categoria-artesanal {
     background-color: transparent;
     color: #dbb1ad;
