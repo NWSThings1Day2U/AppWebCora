@@ -131,42 +131,40 @@
                 <div class="container">
 
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-
-                        <c:forEach items="${listaTop4Productos}" var="p">
-
-                            <div class="col ">
-
-                                <div class="card categoria-card h-100 shadow-sm border-0">
-
-                                    <img src="recursos/${p.imagen}"
-                                         class="card-img-top"
-                                         style="height:320px; object-fit:cover; border-radius: 12px;">
-
-                                    <div class="card-body text-center">
-
-                                        <span class="badge bg-primary mb-2" style=" background-color: #c4b5a8 !important;">
-                                            ${p.categoria}
-                                        </span>
-
-                                        <h5 class="card-title">
-                                            ${p.nombreproducto}
-                                        </h5>
-
-                                        <h4 style="color:#dbb1ad;">
-                                            S/ ${p.precio}
-                                        </h4>
-
-                                        <small class="text-muted">
-                                            ${p.vendidos} unidades vendidas
-                                        </small>
-
+                        <c:choose>
+                            <c:when test="${not empty listaTop4Productos}">
+                                <c:forEach items="${listaTop4Productos}" var="p">
+                                    <div class="col">
+                                        <div class="card categoria-card h-100 shadow-sm border-0">
+                                            <img src="recursos/${p.imagen}"
+                                                 class="card-img-top"
+                                                 style="height:320px; object-fit:cover; border-radius: 12px;">
+                                            <div class="card-body text-center">
+                                                <span class="badge bg-primary mb-2" style=" background-color: #c4b5a8 !important;">
+                                                    ${p.categoria}
+                                                </span>
+                                                <h5 class="card-title">
+                                                    ${p.nombreproducto}
+                                                </h5>
+                                                <h4 style="color:#dbb1ad;">
+                                                    S/ ${p.precio}
+                                                </h4>
+                                                <small class="text-muted">
+                                                    ${p.vendidos} unidades vendidas
+                                                </small>
+                                            </div>
+                                        </div>
                                     </div>
+                                </c:forEach>
+                            </c:when>
 
+                            <%-- Si la lista está vacía o es nula, se muestra este mensaje (Equivalente al else) --%>
+                            <c:otherwise>
+                                <div class="col-12">
+                                    <small class="text-muted text-center">No hay productos disponibles</small>
                                 </div>
-
-                            </div>
-
-                        </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
 
                     </div>
 
