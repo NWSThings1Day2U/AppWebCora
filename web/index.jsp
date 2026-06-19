@@ -121,7 +121,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Falta hacerlo dinamico -->
 
                 <h4 class="text-center catalog-title"
                     style="color:#dbb1ad;margin-top:100px;margin-bottom:70px;font-weight:bold;">
@@ -146,8 +145,8 @@
                                                 <h5 class="card-title">
                                                     ${p.nombreproducto}
                                                 </h5>
-                                                <h4 style="color:#dbb1ad;">
-                                                    S/ ${p.precio}
+                                                <h4 style="color:#7c6753;">
+                                                    Desde <span style="color:#dbb1ad;">S/ ${p.precio}</span>
                                                 </h4>
                                                 <small class="text-muted">
                                                     ${p.vendidos} unidades vendidas
@@ -158,7 +157,6 @@
                                 </c:forEach>
                             </c:when>
 
-                            <%-- Si la lista está vacía o es nula, se muestra este mensaje (Equivalente al else) --%>
                             <c:otherwise>
                                 <div class="col-12">
                                     <small class="text-muted text-center">No hay productos disponibles</small>
@@ -168,7 +166,7 @@
 
                     </div>
 
-                </div>                <!-- Falta hacerlo dinamico -->
+                </div>               
                 <h4 class="text-center catalog-title" style="color:#dbb1ad; margin-top: 100px; margin-bottom: 70px; font-weight: bold;">Categorías disponibles</h4>
 
                 <div class="container mb-5">
