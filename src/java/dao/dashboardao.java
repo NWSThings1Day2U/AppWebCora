@@ -747,20 +747,24 @@ public class dashboardao {
     
     
     public List<dashboard> obtenerTop4ProductosInicio() {
+
         List<dashboard> lista = new ArrayList<>();
 
         String sql =
             "SELECT p.id_producto, " +
-            "p.nombre AS nombreproducto, " +
-            "p.imagen, " +
-            "c.nombre AS categoria, " +
-            "MIN(pv.precio) AS precio, " +
-            "SUM(dp.cantidad) AS vendidos " +
+            "       p.nombre AS nombreproducto, " +
+            "       p.imagen, " +
+            "       c.nombre AS categoria, " +
+            "       MIN(pv.precio) AS precio, " +
+            "       SUM(dp.cantidad) AS vendidos " +
             "FROM productos p " +
-            "INNER JOIN categorias c ON p.id_categoria=c.id_categoria " +
-            "INNER JOIN producto_variantes pv ON p.id_producto=pv.id_producto " +
-            "INNER JOIN detalle_pedido dp ON pv.id_variante=dp.id_variante " +
-            "GROUP BY p.id_producto,p.nombre,p.imagen,c.nombre " +
+            "INNER JOIN categorias c ON p.id_categoria = c.id_categoria " +
+            "INNER JOIN producto_variantes pv ON p.id_producto = pv.id_producto " +
+            "INNER JOIN detalle_pedido dp ON pv.id_variante = dp.id_variante " +
+            "INNER JOIN pedidos pe ON dp.id_pedido = pe.id_pedido " +
+            "WHERE YEARWEEK(pe.fecha_pedido, 1) = YEARWEEK(CURDATE(), 1) " +
+            "AND pe.estado = 'ENTREGADO' " +
+            "GROUP BY p.id_producto, p.nombre, p.imagen, c.nombre " +
             "ORDER BY vendidos DESC " +
             "LIMIT 4";
 
@@ -770,7 +774,7 @@ public class dashboardao {
             PreparedStatement ps = cn.prepareStatement(sql);
             rs = ps.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
 
                 dashboard d = new dashboard();
 
@@ -784,9 +788,9 @@ public class dashboardao {
                 lista.add(d);
             }
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             cerrarrecursos();
         }
 

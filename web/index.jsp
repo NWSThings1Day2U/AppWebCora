@@ -124,7 +124,7 @@
 
                 <h4 class="text-center catalog-title"
                     style="color:#dbb1ad;margin-top:100px;margin-bottom:70px;font-weight:bold;">
-                    Productos Más Solicitados
+                    Los Favoritos de la Semana
                 </h4>
 
                 <div class="container">
