@@ -1,9 +1,11 @@
 package controlador;
 
+import dao.dashboardao;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import modelo.dashboard;
 
 /**
  *
@@ -96,7 +98,40 @@ public class controladorseccion extends HttpServlet {
     private void inicio(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("paginaActual", "inicio");
-
+        dao.dashboardao ddao = new dao.dashboardao();
+        // TARJETAS PRINCIPALES
+        request.setAttribute("totalVentas",ddao.totalVentas());
+        request.setAttribute("totalPedidos", ddao.totalPedidos());
+        request.setAttribute("totalClientes", ddao.totalClientes());
+        request.setAttribute("totalProductos", ddao.totalProductos());
+        // GRÁFICOS
+        request.setAttribute("listaVentas", ddao.obtenerVentasPorMes());
+        request.setAttribute("listaEstados", ddao.obtenerEstadosPedidos());
+        request.setAttribute("listaCategorias", ddao.obtenerVentasCategorias());
+        request.setAttribute("listaIngresosMPagos", ddao.obtenerIngresosMPagos());
+        request.setAttribute("listaCantidadTipoE", ddao.obtenerCantidadTipoE());
+        request.setAttribute("listaTallaVendidas", ddao.obtenerTallaVendidas());
+        request.setAttribute("listaColoresVendidos", ddao.obtenerColoresVendidos());
+        request.setAttribute("listaPedidosDia", ddao.obtenerPedidosDia());
+        // TABLAS
+        request.setAttribute("listaProductosVentidos", ddao.obtenerProductosVendidos());
+        request.setAttribute("listaStockCritico", ddao.obtenerStockCritico());
+        request.setAttribute("listaUltimosPedidos", ddao.obtenerUltimosPedidos());
+        request.setAttribute("listaTopClientes", ddao.obtenerTopClientes());
+        request.setAttribute("listaBajaRotacion", ddao.obtenerBajaRotacion());
+        // INDICADORES
+        request.setAttribute("listaCantidadClientes", ddao.obtenerCantidadClientes());
+        request.setAttribute("listaTotaInventario", ddao.obtenerTotalInventario());
+        request.setAttribute("listaCategoriaRentable", ddao.obtenerCategoriaRentable());
+        request.setAttribute("listaMensajesPendientes", ddao.obtenerMensajesPendientes());
+        request.setAttribute("listaMensajesRespondidos", ddao.obtenerMensajesRespondidas());
+        request.setAttribute("listaHoras", ddao.obtenerTiempoRespuesta());
+        request.setAttribute("listaVentaMes", ddao.obtenerVentasMes());
+        request.setAttribute("listaPorcentaje", ddao.obtenerPorcentajeEntregado());
+        request.setAttribute("listaTicket", ddao.obtenerTicketPromedio());
+        request.setAttribute("listaCriticos", ddao.obtenerProductosCriticos());
+        //resumen
+        request.setAttribute("listaCrecimiento", ddao.obtenerCrecimientoVentas());
         request.getRequestDispatcher(paginicio).forward(request, response);
     }
 

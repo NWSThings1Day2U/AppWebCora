@@ -47,6 +47,7 @@ List<productos> listaVariantes =(List<productos>) request.getAttribute("variante
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 
         <link rel="stylesheet" href="estilos/estilosa.css">
+        <link rel="stylesheet" href="estilos/piestilo.css">
     </head>
     <body>
         <%
@@ -164,21 +165,23 @@ List<productos> listaVariantes =(List<productos>) request.getAttribute("variante
                                     <span class="<%= badgeClass %>" style="text-transform: capitalize;"><%= est %></span>
                                 </td>
                                 <td class="text-center">
-                                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                                    <div class="d-flex flex-wrap justify-content-center gap-1">
 
                                         <% if(!"cancelado".equalsIgnoreCase(p.getEstado())) { %>
-
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalAnular<%=p.getId_pedido()%>">
+                                            <button class="btn btn-danger btn-sm btn-action" data-bs-toggle="modal" data-bs-target="#modalAnular<%=p.getId_pedido()%>">
                                                 <i class="fa-solid fa-ban"></i>
                                             </button>
 
-                                            <button type="button"class="btn btn-actualizar btn-sm" data-bs-toggle="modal" data-bs-target="#modalEstado<%=p.getId_pedido()%>">
+                                            <button type="button" class="btn btn-actualizar btn-sm btn-action" data-bs-toggle="modal" data-bs-target="#modalEstado<%=p.getId_pedido()%>">
                                                 <i class="fa-solid fa-arrows-rotate"></i>
                                             </button>
 
+                                            <button type="button" class="btn btn-outline-primary btn-sm btn-action">
+                                                <i class="fa-solid fa-download"></i>
+                                            </button>      
                                         <% } %>
 
-                                        <a class="btn btn-info btn-sm"
+                                        <a class="btn btn-info btn-sm btn-action" 
                                            href="controladorpedido?accion=detalle&id=<%=p.getId_pedido()%>">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
@@ -497,7 +500,7 @@ List<productos> listaVariantes =(List<productos>) request.getAttribute("variante
                                             
                                        
         </main>
-
+        <jsp:include page="/componentes/pie.jsp" /> 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
         <jsp:include page="/componentes/alertas.jsp" />  
@@ -741,12 +744,14 @@ List<productos> listaVariantes =(List<productos>) request.getAttribute("variante
                     "<td>S/ " + item.precio.toFixed(2) + "</td>" +
                     "<td>S/ " + (item.precio * item.cantidad).toFixed(2) + "</td>" +
                     "<td>" +
-                        "<button type='button' class='btn btn-warning btn-sm me-1' onclick='editarItem(" + index + ")'>" +
-                            "<i class='fa-solid fa-pen'></i>" +
-                        "</button>" +
-                        "<button type='button' class='btn btn-danger btn-sm' onclick='eliminarItem(" + index + ")'>" +
-                            "<i class='fa-solid fa-trash-can'></i>" +
-                        "</button>" +
+                        "<div class='d-flex flex-column flex-md-row gap-1 justify-content-center'>" +
+                            "<button type='button' class='btn btn-warning btn-sm w-100 w-md-auto' onclick='editarItem(" + index + ")'>" +
+                                "<i class='fa-solid fa-pen'></i>" +
+                            "</button>" +
+                            "<button type='button' class='btn btn-danger btn-sm w-100 w-md-auto' onclick='eliminarItem(" + index + ")'>" +
+                                "<i class='fa-solid fa-trash-can'></i>" +
+                            "</button>" +
+                        "</div>" +
                     "</td>" +
                     "</tr>";
             });

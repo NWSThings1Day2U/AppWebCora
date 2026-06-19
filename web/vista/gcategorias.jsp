@@ -23,9 +23,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
         <link rel="icon" href="recursos/logo_cora.png">
+        <!-- Alertify JS -->
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+        <!-- Estilos css -->
         <link rel="stylesheet" href="estilos/estilosa.css">
+        <link rel="stylesheet" href="estilos/piestilo.css">
     </head>
     <body>
         <%
@@ -230,10 +233,11 @@
                 </div>
             </div>
         </main>
-
+         
+        <!-- Bootstrap, Js -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-        
+        <jsp:include page="/componentes/pie.jsp" /> 
         <jsp:include page="../componentes/alertas.jsp" />   
         <script>
             function prepararEditar(id, nombre, descripcion, imagen) {

@@ -51,6 +51,7 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="estilos/estilosa.css">
+        <link rel="stylesheet" href="estilos/piestilo.css">
     </head>
     <body>
         <%
@@ -112,7 +113,7 @@
             </div>
         </div>
 
-            <ul class="nav nav-tabs " id="pestanasUsuarios" role="tablist">
+            <ul class="nav nav-tabs "  id="pestanasUsuarios" role="tablist">
                 <li class="nav-item active-cora" role="presentation">
                     <button class="nav-link active link-cora" id="general-tab"  data-bs-toggle="tab" data-bs-target="#panel-general" type="button" role="tab" aria-controls="panel-general" aria-selected="true">
                         General
@@ -227,173 +228,177 @@
 
                                 <div class="tab-pane fade" id="panel-clientes" role="tabpanel" aria-labelledby="clientes-tab">
                                     <h4 class="mb-4 mt-2 text-success">Tabla de clientes</h4>
-                                    <table class="table table-hover table-bordered">
-                                        <thead class="text-center" style="--bs-table-bg: #F5ECE1;">
-                                            <tr>
-                                                <th>Id Usuario</th><th>Nombre de Usuario</th><th>Nombre completo</th><th>Dni</th><th>Correo</th><th>Teléfono</th><th>Imagen</th><th>Estado</th><th>Acción</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%
-                                                if (listaUsuarios == null || listaUsuarios.isEmpty()) {
-                                            %>
-                                            <tr>
-                                                <td colspan="10" class="text-center text-muted">No hay registros de usuarios disponibles</td> 
-                                            </tr>
-                                            <%
-                                                } else {
-                                                    for(usuarios usu: listaUsuarios){
-                                                        if(usu.getRol().equals("cliente")){
-                                                            String estado ="Inactivo";
-                                                            String color = "text-bg-secondary";
-                                                            if(usu.getEstadousuario()==1){
-                                                                estado = "Activo";
-                                                                color = "text-bg-primary";
-                                                            }
-                                            %>
-                                            <tr class="align-middle fila-usuario" data-nombre="<%= usu.getNombreusuario().toLowerCase() %>">
-                                                <th scope="row" class="text-center"><%=usu.getIdUsuario()%></th>
-                                                <td><%=usu.getNombreusuario()%></td>
-                                                <td><%=usu.getNombrecompleto()%></td>
-                                                <td><%=usu.getDni()%></td>
-                                                <td><%=usu.getCorreo()%></td>
-                                                <td><%=usu.getTelefono()%></td>
-                                                <td class="text-center">
-                                                    <img src="recursos/<%= (usu.getImagen() != null && !usu.getImagen().isEmpty()) ? usu.getImagen() : "cuenta.jpg" %>" 
-                                                         alt="<%= usu.getNombreusuario() %>" 
-                                                         width="60" 
-                                                         height="60" 
-                                                         style="object-fit: cover;" 
-                                                         class="rounded border shadow-sm">
-                                                </td>
-                                                <td><span class="badge <%=color%>"><%=estado%></span></td>
-                                                <td class="text-center">
-                                                    <div class="d-flex flex-wrap justify-content-center gap-2">
-                                                       <button type="button"
-                                                                class="btn btn-warning btn-sm btn-editar"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalEditar"
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <thead class="text-center" style="--bs-table-bg: #F5ECE1;">
+                                                <tr>
+                                                    <th>Id Usuario</th><th>Nombre de Usuario</th><th>Nombre completo</th><th>Dni</th><th>Correo</th><th>Teléfono</th><th>Imagen</th><th>Estado</th><th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%
+                                                    if (listaUsuarios == null || listaUsuarios.isEmpty()) {
+                                                %>
+                                                <tr>
+                                                    <td colspan="10" class="text-center text-muted">No hay registros de usuarios disponibles</td> 
+                                                </tr>
+                                                <%
+                                                    } else {
+                                                        for(usuarios usu: listaUsuarios){
+                                                            if(usu.getRol().equals("cliente")){
+                                                                String estado ="Inactivo";
+                                                                String color = "text-bg-secondary";
+                                                                if(usu.getEstadousuario()==1){
+                                                                    estado = "Activo";
+                                                                    color = "text-bg-primary";
+                                                                }
+                                                %>
+                                                <tr class="align-middle fila-usuario" data-nombre="<%= usu.getNombreusuario().toLowerCase() %>">
+                                                    <th scope="row" class="text-center"><%=usu.getIdUsuario()%></th>
+                                                    <td><%=usu.getNombreusuario()%></td>
+                                                    <td><%=usu.getNombrecompleto()%></td>
+                                                    <td><%=usu.getDni()%></td>
+                                                    <td><%=usu.getCorreo()%></td>
+                                                    <td><%=usu.getTelefono()%></td>
+                                                    <td class="text-center">
+                                                        <img src="recursos/<%= (usu.getImagen() != null && !usu.getImagen().isEmpty()) ? usu.getImagen() : "cuenta.jpg" %>" 
+                                                             alt="<%= usu.getNombreusuario() %>" 
+                                                             width="60" 
+                                                             height="60" 
+                                                             style="object-fit: cover;" 
+                                                             class="rounded border shadow-sm">
+                                                    </td>
+                                                    <td><span class="badge <%=color%>"><%=estado%></span></td>
+                                                    <td class="text-center">
+                                                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                                                           <button type="button"
+                                                                    class="btn btn-warning btn-sm btn-editar"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEditar"
 
-                                                                data-id="<%= usu.getIdUsuario() %>"
-                                                                data-user="<%= usu.getNombreusuario() %>"
-                                                                data-nombre="<%= usu.getNombrecompleto() %>"
-                                                                data-dni="<%= usu.getDni() %>"
-                                                                data-correo="<%= usu.getCorreo() %>"
-                                                                data-telefono="<%= usu.getTelefono() %>"
-                                                                data-estado="<%= usu.getEstadousuario() %>"
-                                                                data-rol="<%= usu.getRol() %>"
-                                                                data-imagen="<%= usu.getImagen() %>">
+                                                                    data-id="<%= usu.getIdUsuario() %>"
+                                                                    data-user="<%= usu.getNombreusuario() %>"
+                                                                    data-nombre="<%= usu.getNombrecompleto() %>"
+                                                                    data-dni="<%= usu.getDni() %>"
+                                                                    data-correo="<%= usu.getCorreo() %>"
+                                                                    data-telefono="<%= usu.getTelefono() %>"
+                                                                    data-estado="<%= usu.getEstadousuario() %>"
+                                                                    data-rol="<%= usu.getRol() %>"
+                                                                    data-imagen="<%= usu.getImagen() %>">
 
-                                                            <i class="fa-solid fa-pencil"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                                class="btn btn-danger btn-sm btn-eliminar"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalEliminar"
-                                                                data-id="<%= usu.getIdUsuario() %>">
+                                                                <i class="fa-solid fa-pencil"></i>
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-danger btn-sm btn-eliminar"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEliminar"
+                                                                    data-id="<%= usu.getIdUsuario() %>">
 
-                                                            <i class="fa-solid fa-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                         
-                                                </td>
-                                                
-                                            </tr>
-                                            <%          }
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </button>
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+                                                <%          }
+                                                        }
                                                     }
-                                                }
-                                            %>
-                                            <tr class="sinResultados" style="display: none;">
-                                    <td colspan="9" class="text-center text-muted p-4">No se encontraron usuarios que coincidan con la búsqueda.</td>
-                                </tr>
-                                        </tbody>
-                                    </table>
+                                                %>
+                                                <tr class="sinResultados" style="display: none;">
+                                        <td colspan="9" class="text-center text-muted p-4">No se encontraron usuarios que coincidan con la búsqueda.</td>
+                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane fade" id="panel-admin" role="tabpanel" aria-labelledby="admin-tab">
                                     <h4 class="mb-4 mt-2 text-danger">Tabla de administradores</h4>
-                                    <table class="table table-hover table-bordered">
-                                        <thead class="text-center" style="--bs-table-bg: #F5ECE1;">
-                                            <tr>
-                                                <th>Id Usuario</th><th>Nombre de Usuario</th><th>Nombre completo</th><th>Dni</th><th>Correo</th><th>Teléfono</th><th>Imagen</th><th>Estado</th><th>Acción</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%
-                                                if (listaUsuarios == null || listaUsuarios.isEmpty()) {
-                                            %>
-                                            <tr>
-                                                <td colspan="10" class="text-center text-muted">No hay registros de usuarios disponibles</td> 
-                                            </tr>
-                                            <%
-                                                } else {
-                                                    for(usuarios usu: listaUsuarios){
-                                                        if(usu.getRol().equals("admin")){
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <thead class="text-center" style="--bs-table-bg: #F5ECE1;">
+                                                <tr>
+                                                    <th>Id Usuario</th><th>Nombre de Usuario</th><th>Nombre completo</th><th>Dni</th><th>Correo</th><th>Teléfono</th><th>Imagen</th><th>Estado</th><th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%
+                                                    if (listaUsuarios == null || listaUsuarios.isEmpty()) {
+                                                %>
+                                                <tr>
+                                                    <td colspan="10" class="text-center text-muted">No hay registros de usuarios disponibles</td> 
+                                                </tr>
+                                                <%
+                                                    } else {
+                                                        for(usuarios usu: listaUsuarios){
+                                                            if(usu.getRol().equals("admin")){
 
-                                                            String estado ="Inactivo";
-                                                            String color = "text-bg-secondary";
-                                                            if(usu.getEstadousuario()==1){
-                                                                estado = "Activo";
-                                                                color = "text-bg-primary";
-                                                            }
-                                            %>
-                                            <tr class="align-middle fila-usuario" data-nombre="<%= usu.getNombreusuario().toLowerCase() %>">
-                                                <th scope="row" class="text-center"><%=usu.getIdUsuario()%></th>
-                                                <td><%=usu.getNombreusuario()%></td>
-                                                <td><%=usu.getNombrecompleto()%></td>
-                                                <td><%=usu.getDni()%></td>
-                                                <td><%=usu.getCorreo()%></td>
-                                                <td><%=usu.getTelefono()%></td>
-                                                <td class="text-center">
-                                                    <img src="recursos/<%= (usu.getImagen() != null && !usu.getImagen().isEmpty()) ? usu.getImagen() : "cuenta.jpg" %>" 
-                                                         alt="<%= usu.getNombreusuario() %>" 
-                                                         width="60" 
-                                                         height="60" 
-                                                         style="object-fit: cover;" 
-                                                         class="rounded border shadow-sm">
-                                                </td>
-                                                <td><span class="badge <%=color%>"><%=estado%></span></td>
-                                                <td class="text-center">
-                                                    <div class="d-flex flex-wrap justify-content-center gap-2">
-                                                        <button type="button"
-                                                                class="btn btn-warning btn-sm btn-editar"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalEditar"
+                                                                String estado ="Inactivo";
+                                                                String color = "text-bg-secondary";
+                                                                if(usu.getEstadousuario()==1){
+                                                                    estado = "Activo";
+                                                                    color = "text-bg-primary";
+                                                                }
+                                                %>
+                                                <tr class="align-middle fila-usuario" data-nombre="<%= usu.getNombreusuario().toLowerCase() %>">
+                                                    <th scope="row" class="text-center"><%=usu.getIdUsuario()%></th>
+                                                    <td><%=usu.getNombreusuario()%></td>
+                                                    <td><%=usu.getNombrecompleto()%></td>
+                                                    <td><%=usu.getDni()%></td>
+                                                    <td><%=usu.getCorreo()%></td>
+                                                    <td><%=usu.getTelefono()%></td>
+                                                    <td class="text-center">
+                                                        <img src="recursos/<%= (usu.getImagen() != null && !usu.getImagen().isEmpty()) ? usu.getImagen() : "cuenta.jpg" %>" 
+                                                             alt="<%= usu.getNombreusuario() %>" 
+                                                             width="60" 
+                                                             height="60" 
+                                                             style="object-fit: cover;" 
+                                                             class="rounded border shadow-sm">
+                                                    </td>
+                                                    <td><span class="badge <%=color%>"><%=estado%></span></td>
+                                                    <td class="text-center">
+                                                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                                                            <button type="button"
+                                                                    class="btn btn-warning btn-sm btn-editar"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEditar"
 
-                                                                data-id="<%= usu.getIdUsuario() %>"
-                                                                data-user="<%= usu.getNombreusuario() %>"
-                                                                data-nombre="<%= usu.getNombrecompleto() %>"
-                                                                data-dni="<%= usu.getDni() %>"
-                                                                data-correo="<%= usu.getCorreo() %>"
-                                                                data-telefono="<%= usu.getTelefono() %>"
-                                                                data-estado="<%= usu.getEstadousuario() %>"
-                                                                data-rol="<%= usu.getRol() %>"
-                                                                data-imagen="<%= usu.getImagen() %>">
+                                                                    data-id="<%= usu.getIdUsuario() %>"
+                                                                    data-user="<%= usu.getNombreusuario() %>"
+                                                                    data-nombre="<%= usu.getNombrecompleto() %>"
+                                                                    data-dni="<%= usu.getDni() %>"
+                                                                    data-correo="<%= usu.getCorreo() %>"
+                                                                    data-telefono="<%= usu.getTelefono() %>"
+                                                                    data-estado="<%= usu.getEstadousuario() %>"
+                                                                    data-rol="<%= usu.getRol() %>"
+                                                                    data-imagen="<%= usu.getImagen() %>">
 
-                                                            <i class="fa-solid fa-pencil"></i>
-                                                        </button>
-                                                        <button type="button"
-                                                                class="btn btn-danger btn-sm btn-eliminar"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalEliminar"
-                                                                data-id="<%= usu.getIdUsuario() %>">
+                                                                <i class="fa-solid fa-pencil"></i>
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-danger btn-sm btn-eliminar"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEliminar"
+                                                                    data-id="<%= usu.getIdUsuario() %>">
 
-                                                            <i class="fa-solid fa-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                         
-                                                </td>
-                                                
-                                            </tr>
-                                            <%          }
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </button>
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+                                                <%          }
+                                                        }
                                                     }
-                                                }
-                                            %>
-                                            <tr class="sinResultados" style="display: none;">
-                                    <td colspan="9" class="text-center text-muted p-4">No se encontraron usuarios que coincidan con la búsqueda.</td>
-                                </tr>
-                                        </tbody>
-                                    </table>
+                                                %>
+                                                <tr class="sinResultados" style="display: none;">
+                                        <td colspan="9" class="text-center text-muted p-4">No se encontraron usuarios que coincidan con la búsqueda.</td>
+                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
                             </div> 
@@ -600,6 +605,7 @@
         </main>
 
         <!-- Bootstrap y alertify -->
+        <jsp:include page="/componentes/pie.jsp" /> 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
         <jsp:include page="../componentes/alertas.jsp" /> 

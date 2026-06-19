@@ -111,7 +111,7 @@
                                         <i class="fa-solid fa-address-book me-2"></i>Contacto
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item mb-5">
                                     <a class="nav-link ${paginaActual == 'perfil' ? 'active' : ''}" 
                                        href="controladorseccion?seccion=perfil">
                                         <i class="fa-solid fa-user me-2"></i>Perfil

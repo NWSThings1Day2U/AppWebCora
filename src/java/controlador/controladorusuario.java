@@ -69,6 +69,7 @@ public class controladorusuario extends HttpServlet {
             sesion.setAttribute("success", "Bienvenido " + usu.getNombreusuario());
 
             if ("admin".equals(usu.getRol())) {
+                
                 response.sendRedirect("controladorseccion?seccion=inicio");
             } else {
                 response.sendRedirect("controladorpagina?pagina=perfil");

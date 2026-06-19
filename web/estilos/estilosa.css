@@ -103,8 +103,27 @@ body {
     border-color: #353D6E !important;
     color: white !important;
 }
+.table th:last-child, 
+.table td:last-child {
+    min-width: 140px !important;
+}
+.table td .d-flex {
+    flex-wrap: nowrap !important; 
+    gap: 2px !important;         
+}
 
-
+.table td .btn.btn-action {
+    width: 30px !important;      
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    font-size: 12px !important;
+}
 .card-title {
     font-weight: bold;
     margin: 50px;
@@ -278,14 +297,7 @@ body {
     display: none; 
     z-index: 10;
 }
-.table .btn-sm {
-    width: 38px;
-    height: 38px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-}
+
 
 .table td {
     vertical-align: middle;
@@ -303,8 +315,8 @@ body {
 
 .nav-link.link-cora.active {
     color: #D69F96 !important;
-    background-color: transparent;
     font-weight: bold;
+    background-color: white !important;
 }
 
 .btn-redactar {
@@ -417,4 +429,3 @@ body {
         display: none; 
     }
 }
-

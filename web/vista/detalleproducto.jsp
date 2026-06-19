@@ -52,6 +52,7 @@ if (variantes != null) {
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
         <link rel="stylesheet" href="estilos/estilosa.css">
+        <link rel="stylesheet" href="estilos/piestilo.css">
     </head>
     <body>
         <%
@@ -515,7 +516,12 @@ if (variantes != null) {
             </div>
 
         </div>
-        <script>
+       
+        <jsp:include page="/componentes/pie.jsp" /> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>        
+        <jsp:include page="/componentes/alertas.jsp" />   
+         <script>
             function editarVariante(id, color, talla, stock, precio) {
 
                 document.getElementById("edit_id_variante").value = id;
@@ -534,8 +540,5 @@ if (variantes != null) {
                 new bootstrap.Modal( document.getElementById("modalEliminarVariante")).show();
             }
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>        
-        <jsp:include page="/componentes/alertas.jsp" />   
     </body>
 </html>

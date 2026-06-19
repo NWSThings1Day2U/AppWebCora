@@ -112,11 +112,17 @@
                                                 <span>Por definirse</span>
                                             <% } %>
                                         </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary py-2" onclick="abrirDetalle(<%=p.getId_pedido()%>)">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </button>
+                                        <td class="text-nowrap">
+                                            <div class="d-flex gap-1 justify-content-center flex-wrap">
+                                                <button type="button" class="btn btn-primary btn-sm py-1 px-2" onclick="abrirDetalle(<%=p.getId_pedido()%>)">
+                                                    <i class="fa-solid fa-eye fa-sm"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary btn-sm py-1 px-2">
+                                                    <i class="fa-solid fa-download fa-sm"></i>
+                                                </button>
+                                            </div>
                                         </td>
+
 
                                     </tr>
                                     <%
