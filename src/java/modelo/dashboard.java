@@ -29,10 +29,13 @@ public class dashboard {
     private String cliente;
     private String fecha_estimada;
     private double total;
+    private int id_producto;
+    private String imagen;
+    private double precio;
     public dashboard() {
     }
 
-    public dashboard(int mes, double ventas, String estado_pedido, int cantidad_estado, int cantidad_categoria, int cantidad_pedidos, String categoria, String nombreproducto, int vendidos, String color, String talla, int stock, int stock_min, String metodo_pago, double ingresospago, String tipo_entrega, int cantidadtipo, int clientes_nuevos, int clientes_antiguos, int id_cliente, String cliente, String fecha_estimada, double total) {
+    public dashboard(int mes, double ventas, String estado_pedido, int cantidad_estado, int cantidad_categoria, int cantidad_pedidos, String categoria, String nombreproducto, int vendidos, String color, String talla, int stock, int stock_min, String metodo_pago, double ingresospago, String tipo_entrega, int cantidadtipo, int clientes_nuevos, int clientes_antiguos, int id_cliente, String cliente, String fecha_estimada, double total, int id_producto, String imagen, double precio) {
         this.mes = mes;
         this.ventas = ventas;
         this.estado_pedido = estado_pedido;
@@ -56,8 +59,35 @@ public class dashboard {
         this.cliente = cliente;
         this.fecha_estimada = fecha_estimada;
         this.total = total;
+        this.id_producto = id_producto;
+        this.imagen = imagen;
+        this.precio = precio;
     }
 
+    public int getId_producto() {
+        return id_producto;
+    }
+
+    public void setId_producto(int id_producto) {
+        this.id_producto = id_producto;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    
     public int getCantidad_pedidos() {
         return cantidad_pedidos;
     }

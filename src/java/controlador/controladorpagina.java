@@ -1,6 +1,7 @@
 package controlador;
 
 import dao.categoriadao;
+import dao.dashboardao;
 import dao.productodao;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -112,6 +113,8 @@ public class controladorpagina extends HttpServlet {
         HttpSession session = request.getSession();
         List<categorias> lista = dao.mostrarCategorias();
         request.setAttribute("listaCategorias", lista);
+        dashboardao d = new dashboardao();
+        request.setAttribute("listaTop4Productos", d.obtenerTop4ProductosInicio());
         Integer idUsuario = (Integer) session.getAttribute("id");
         request.getRequestDispatcher(paginicio).forward(request, response);
     }

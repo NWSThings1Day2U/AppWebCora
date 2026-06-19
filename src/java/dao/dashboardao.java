@@ -744,6 +744,54 @@ public class dashboardao {
 
         return crecimiento;
     } 
+    
+    
+    public List<dashboard> obtenerTop4ProductosInicio() {
+        List<dashboard> lista = new ArrayList<>();
+
+        String sql =
+            "SELECT p.id_producto, " +
+            "p.nombre AS nombreproducto, " +
+            "p.imagen, " +
+            "c.nombre AS categoria, " +
+            "MIN(pv.precio) AS precio, " +
+            "SUM(dp.cantidad) AS vendidos " +
+            "FROM productos p " +
+            "INNER JOIN categorias c ON p.id_categoria=c.id_categoria " +
+            "INNER JOIN producto_variantes pv ON p.id_producto=pv.id_producto " +
+            "INNER JOIN detalle_pedido dp ON pv.id_variante=dp.id_variante " +
+            "GROUP BY p.id_producto,p.nombre,p.imagen,c.nombre " +
+            "ORDER BY vendidos DESC " +
+            "LIMIT 4";
+
+        try {
+
+            cn = conexioncora_bd.probarConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+
+                dashboard d = new dashboard();
+
+                d.setId_producto(rs.getInt("id_producto"));
+                d.setNombreproducto(rs.getString("nombreproducto"));
+                d.setImagen(rs.getString("imagen"));
+                d.setCategoria(rs.getString("categoria"));
+                d.setPrecio(rs.getDouble("precio"));
+                d.setVendidos(rs.getInt("vendidos"));
+
+                lista.add(d);
+            }
+
+        } catch(Exception e){
+            e.printStackTrace();
+        } finally{
+            cerrarrecursos();
+        }
+
+        return lista;
+    }
      
     private void cerrarrecursos() {
         try { if (rs != null) rs.close(); } catch (Exception e) {}

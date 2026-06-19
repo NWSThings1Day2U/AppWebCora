@@ -123,22 +123,54 @@
                 </div>
                 <!-- Falta hacerlo dinamico -->
 
-                <h4 class="text-center  catalog-title" style="color:#dbb1ad;margin-top: 100px;margin-bottom: 70px; font-weight: bold;">Productos destacados</h4>
-                <div >
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <h4 class="text-center catalog-title"
+                    style="color:#dbb1ad;margin-top:100px;margin-bottom:70px;font-weight:bold;">
+                    Productos Más Solicitados
+                </h4>
+
+                <div class="container">
+
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+
+                        <c:forEach items="${listaTop4Productos}" var="p">
+
+                            <div class="col ">
+
+                                <div class="card categoria-card h-100 shadow-sm border-0">
+
+                                    <img src="recursos/${p.imagen}"
+                                         class="card-img-top"
+                                         style="height:320px; object-fit:cover; border-radius: 12px;">
+
+                                    <div class="card-body text-center">
+
+                                        <span class="badge bg-primary mb-2" style=" background-color: #c4b5a8 !important;">
+                                            ${p.categoria}
+                                        </span>
+
+                                        <h5 class="card-title">
+                                            ${p.nombreproducto}
+                                        </h5>
+
+                                        <h4 style="color:#dbb1ad;">
+                                            S/ ${p.precio}
+                                        </h4>
+
+                                        <small class="text-muted">
+                                            ${p.vendidos} unidades vendidas
+                                        </small>
+
+                                    </div>
+
                                 </div>
+
                             </div>
-                        </div>
-                        
+
+                        </c:forEach>
+
                     </div>
-                </div>
-                <!-- Falta hacerlo dinamico -->
+
+                </div>                <!-- Falta hacerlo dinamico -->
                 <h4 class="text-center catalog-title" style="color:#dbb1ad; margin-top: 100px; margin-bottom: 70px; font-weight: bold;">Categorías disponibles</h4>
 
                 <div class="container mb-5">
